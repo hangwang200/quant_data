@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --bg: #f5f4f0;
+  --surface: #ffffff;
+  --surface-2: #f2f0ea;
+  --line: #e7e4dc;
+  --line-strong: #d6d2c7;
+  --text: #1c1b18;
+  --muted: #6f6b62;
+  --faint: #a19d92;
+  --accent: #2f4bd8;
+  --accent-soft: #e9edff;
+  --accent-text: #2440c4;
+  --up: #d6343c;        /* A 股：红涨 */
+  --up-soft: #fdecec;
+  --down: #16935b;      /* 绿跌 */
+  --down-soft: #e7f6ee;
+  --warn: #c7811c;
+  --warn-soft: #fbf1e1;
+  --chart-1: #2f4bd8;
+  --chart-2: #e08a2c;
+  --chart-3: #11998e;
+  --chart-4: #9b51e0;
+  --chart-5: #d6346f;
+  --chart-6: #6b7280;
+  --shadow: 0 1px 2px rgb(28 27 24 / 0.04), 0 2px 8px rgb(28 27 24 / 0.04);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0e1014;
+  --surface: #161920;
+  --surface-2: #1d2129;
+  --line: #262b35;
+  --line-strong: #343a47;
+  --text: #e8e9ec;
+  --muted: #9298a6;
+  --faint: #5f6573;
+  --accent: #7d92ff;
+  --accent-soft: #1f2645;
+  --accent-text: #a3b2ff;
+  --up: #f0565d;
+  --up-soft: #3a1b1e;
+  --down: #2ebd7c;
+  --down-soft: #13301f;
+  --warn: #e6a23c;
+  --warn-soft: #3a2d15;
+  --chart-1: #7d92ff;
+  --chart-2: #f0a54a;
+  --chart-3: #34c3b5;
+  --chart-4: #b886f5;
+  --chart-5: #f06b9a;
+  --chart-6: #9ca3af;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-text: var(--accent-text);
+  --color-up: var(--up);
+  --color-up-soft: var(--up-soft);
+  --color-down: var(--down);
+  --color-down-soft: var(--down-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --font-sans: "Inter", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+.num { font-variant-numeric: tabular-nums; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); }
+.eyebrow { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: var(--faint); }
+
+input, select, button { font: inherit; color: inherit; }
+.field {
+  height: 34px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line-strong);
+  background: var(--surface); outline: none; transition: border-color .15s, box-shadow .15s;
+}
+.field:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+textarea { font: inherit; color: inherit; }
+textarea.field { height: auto; }

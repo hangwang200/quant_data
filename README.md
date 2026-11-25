@@ -45,7 +45,20 @@ cd frontend && npm install && npm run dev      # 打开 http://localhost:5173
 | 分红送配（每股派息、预案/除息日） | 东方财富（经 AkShare） | 按报告期一次拉全市场 |
 | 历史成分股（每月末快照）、历史 ST、退市股换手率 | Baostock | 较慢，按月更新即可 |
 
-所有数据写入 `data/quant.duckdb`（DuckDB 单文件）。
+所有数据写入 `data/quant.duckdb`（DuckDB 单文件，约 4 GB）。该文件**不进 Git**（已在 `.gitignore` 中排除），
+数据库快照存放在 Hugging Face 私有 Dataset 仓库 `zsm2245/quant_data`：
+
+```bash
+# 首次登录（需 Write 权限的 token：https://huggingface.co/settings/tokens）
+python -c "from huggingface_hub import login; login()"
+
+python scripts/hf_data.py download   # 从 HF 拉取数据库到 data/quant.duckdb（换机器时用，免去 1–1.5 小时的首次 ETL）
+python scripts/hf_data.py upload     # 把本地数据库快照上传到 HF
+```
+
+上传前需关闭所有连接该数据库的程序（后端 uvicorn、Jupyter、VS Code 的 DuckDB 插件等），
+Windows 下 DuckDB 打开文件时会加独占锁，否则上传会报 `Permission denied`。
+也可以不下载快照，直接按「快速开始」运行 ETL 重建。
 
 ## 关键设计
 
@@ -89,6 +102,9 @@ backend/
   screener.py   选股规则
   api/main.py   FastAPI
   cli.py        命令行
+scripts/
+  hf_data.py    数据库快照与 Hugging Face 同步（upload / download）
+data/           quant.duckdb（不进 Git）
 frontend/       React + Vite + Tailwind + ECharts
 tests/          合成数据测试
 ```

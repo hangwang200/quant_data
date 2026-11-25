@@ -23,3 +23,5 @@ frontend/dist/
 
 
 __pycache__/*.pyc
+# Hugging Face download cache
+data/.cache/

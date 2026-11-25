@@ -18,3 +18,8 @@ frontend/dist/
 
 # Editor
 .vscode/
+
+*.duckdb
+
+
+__pycache__/*.pyc
